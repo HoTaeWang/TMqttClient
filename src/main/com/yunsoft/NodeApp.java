@@ -68,6 +68,11 @@ public class NodeApp implements MqttCallback, IMqttActionListener {
         }
     }
 
+    public MessageActionListener publishCommand(String cmdName, String destinationName){
+        String command = String.format("%s%s%s%s%s", COMMAND_KEY, COMMAND_SEPARATOR, cmdName, COMMAND_SEPARATOR, destinationName);
+        return publishTextMessage(command);
+    }
+
     @Override
     public void onSuccess(IMqttToken asyncActionToken) {
         if(asyncActionToken.equals(mConnectToken)){
@@ -97,11 +102,25 @@ public class NodeApp implements MqttCallback, IMqttActionListener {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
+        // A message has arrived from the MQTT broker
+        // The MQTT broker doesn't send back an acknowledgment
+        // an acknowledgement to the server until this method returns cleanly
+        if(!topic.equals(TOPIC)){
+            return;
+        }
 
+        String messageText = new String(message.getPayload(), ENCODING);
+        System.out.println( String.format("<MQTT> %s received %s: %s", mName, topic, messageText));
+        String[] keyValue = messageText.split(COMMAND_SEPARATOR);
+        if(keyValue.length != 3){
+            return;
+        }
+        System.out.println( String.format( "%s, message= %s, messageText = %s ", mName, message, messageText ));
     }
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
-
+        // Delivery for a message has been completed
+        // and all acknowledgements have been received
     }
 }
