@@ -49,7 +49,6 @@ public class Publisher {
 
             sampleClient.disconnect();
             System.out.println("Disconnected");
-            System.exit(0);
         }catch (MqttException e){
             System.out.println("Reason: " + e.getReasonCode());
             System.out.println("msg " + e.getMessage());
