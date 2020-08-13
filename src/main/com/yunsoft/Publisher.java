@@ -6,10 +6,20 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-public class Main {
+public class Publisher {
+//    public static final String BROKER_URL = "tcp://broker.mqttdashboard.com:1883";
+//    private MqttClient mClient;
 
-    public static void main(String[] args) {
+    public Publisher(){
+//        String clientId = "MyMac" + "-pub";
+//        try{
+//            mClient = new MqttClient(BROKER_URL, clientId);
+//        }catch (MqttException e){
+//            e.printStackTrace();
+//        }
+    }
 
+    public static void invoke(){
         System.out.println("Hello Mqtt");
         String topic = "MQTT APNC";
         String content = "Message from MqttPublish";
@@ -35,6 +45,8 @@ public class Main {
             message.setQos(qos);
             sampleClient.publish(topic, message);
             System.out.println("Message published");
+
+
             sampleClient.disconnect();
             System.out.println("Disconnected");
             System.exit(0);
@@ -48,4 +60,5 @@ public class Main {
         }
 
     }
+
 }

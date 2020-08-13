@@ -16,12 +16,12 @@ allprojects {
 
 dependencies {
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
-    //**implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+    implementation 'junit:junit:4.12'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
 
-sourceSets.main.java.srcDirs = ['src/com/yunsoft']
+sourceSets.main.java.srcDirs = ['src/main/com/yunsoft']
 
 mainClassName = 'com.yunsoft.Main'
